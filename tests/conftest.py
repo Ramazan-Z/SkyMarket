@@ -9,7 +9,7 @@ from src.products import Category, Product
 @pytest.fixture
 def product() -> Product:
     name = "Имя продукта"
-    description = "Описение продукта"
+    description = "Описание продукта"
     price = 10999.99
     quantity = 100
     return Product(name, description, price, quantity)
@@ -20,8 +20,7 @@ def product() -> Product:
 def category() -> Category:
     name = "Мебель"
     description = "Для дома и офиса"
-
-    table = Product("Стол компьютерный", "Aceline Basic 01 белый", 1699, 16)
+    table = Product("Стол компьютерный", "Aceline Basic 01 белый", 1699.0, 16)
     chair = Product("Стул", "Opus 1 beige / black", 11390.0, 8)
 
     return Category(name, description, [table, chair])
