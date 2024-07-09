@@ -2,7 +2,9 @@
 
 from typing import Any
 
-from src.products import Category, Product
+import pytest
+
+from src.products import Category, CategoryIterator, Product
 
 
 # Тест инициализации класса Product
@@ -105,3 +107,52 @@ def test_get_products(category: Category) -> None:
         "Стол компьютерный, 1699.0 руб. Остаток: 16 шт.",
         "Стул, 11390.0 руб. Остаток: 8 шт.",
     ]
+
+
+# Тест метода __len__ класса Product
+def test_len_product(product: Product) -> None:
+    assert len(product) == 100
+
+
+# Тест метода __repr__ класса Product
+def test_repr_product(product: Product) -> None:
+    assert repr(product) == "Product('Имя продукта', 'Описание продукта', 10999.99, 100)"
+
+
+# Тест метода __str__ класса Product
+def test_str_product(product: Product) -> None:
+    assert str(product) == "Имя продукта, 10999.99 руб. Остаток: 100 шт."
+
+
+# Тест метода __add__ класса Product
+def test_magic_add_product(product: Product) -> None:
+    new_product = Product("Новый продукт", "Новое описание", 500.0, 20)
+    assert product + new_product == 1109999.0
+
+
+# Тест метода __len__ класса Category
+def test_len_category(category: Category) -> None:
+    assert len(category) == 24
+
+
+# Тест метода __repr__ класса Category
+def test_repr_category(category: Category) -> None:
+    assert repr(category) == (
+        "Category('Мебель', 'Для дома и офиса', "
+        + "[Product('Стол компьютерный', 'Aceline Basic 01 белый', 1699.0, 16), "
+        + "Product('Стул', 'Opus 1 beige / black', 11390.0, 8)])"
+    )
+
+
+# Тест метода __str__ класса Category
+def test_str_category(category: Category) -> None:
+    assert str(category) == "Мебель, количество продуктов: 24 шт."
+
+
+# Тест класса CategoryIterator
+def test_category_iterator(category: Category) -> None:
+    category_iterator = iter(CategoryIterator(category))
+    assert repr(next(category_iterator)) == "Product('Стол компьютерный', 'Aceline Basic 01 белый', 1699.0, 16)"
+    assert repr(next(category_iterator)) == "Product('Стул', 'Opus 1 beige / black', 11390.0, 8)"
+    with pytest.raises(StopIteration):
+        next(category_iterator)
