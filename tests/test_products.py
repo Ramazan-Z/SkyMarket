@@ -4,7 +4,7 @@ from typing import Any
 
 import pytest
 
-from src.products import Category, CategoryIterator, Product
+from src.products import Category, CategoryIterator, LawnGrass, Product, Smartphone
 
 
 # Тест инициализации класса Product
@@ -156,3 +156,32 @@ def test_category_iterator(category: Category) -> None:
     assert repr(next(category_iterator)) == "Product('Стул', 'Opus 1 beige / black', 11390.0, 8)"
     with pytest.raises(StopIteration):
         next(category_iterator)
+
+
+# Тест метода __add__ класса Product случай с неверным объектом сложения
+def test_magic_add_product_error(lawn_grass: LawnGrass, smartphone: Smartphone) -> None:
+    with pytest.raises(TypeError) as e:
+        lawn_grass + smartphone
+    assert str(e.value) == "Складывать товары можно только из одинаковых классов продуктов."
+
+
+# Тест метода add_product с объектом Smartphone
+def test_add_product_smartphone(category: Category, smartphone: Smartphone) -> None:
+    assert len(category.products) == 2
+    category.add_product(smartphone)
+    assert len(category.products) == 3
+
+
+# Тест метода add_product с объектом LawnGrass
+def test_add_product_lawn_grass(category: Category, lawn_grass: LawnGrass) -> None:
+    assert len(category.products) == 2
+    category.add_product(lawn_grass)
+    assert len(category.products) == 3
+
+
+# Тест метода add_product с другим объектом
+def test_add_product_other(category: Category) -> None:
+    assert len(category.products) == 2
+    with pytest.raises(TypeError) as e:
+        category.add_product("Строка")
+    assert str(e.value) == "В категорию можно добавить только объекты класса Product или его подклассов"
