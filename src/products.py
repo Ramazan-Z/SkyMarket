@@ -27,6 +27,8 @@ class Product:
 
     def __add__(self, other: Any) -> float:
         """Метод для сложения стоимостей товаров"""
+        if type(self) is not type(other):
+            raise TypeError("Складывать товары можно только из одинаковых классов продуктов.")
         return self.__price * len(self) + float(other.price) * len(other)
 
     @property
@@ -54,6 +56,48 @@ class Product:
                 product.quantity += quantity
                 return product
         return cls(name, description, price, quantity)
+
+
+class Smartphone(Product):
+    """Класс продукта категории «Смартфон»"""
+
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        performance: int,
+        model: str,
+        memory: int,
+        color: str,
+    ) -> None:
+        """Инициализация новых атрибутов экземпляра класса"""
+        super().__init__(name, description, price, quantity)
+        self.performance = performance
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+
+class LawnGrass(Product):
+    """Класс продукта категории «Трава газонная»"""
+
+    def __init__(
+        self,
+        name: str,
+        description: str,
+        price: float,
+        quantity: int,
+        manufacturer: str,
+        germination_period: int,
+        color: str,
+    ) -> None:
+        """Инициализация новых атрибутов экземпляра класса"""
+        super().__init__(name, description, price, quantity)
+        self.manufacturer = manufacturer
+        self.germination_period = germination_period
+        self.color = color
 
 
 class Category:
@@ -87,8 +131,10 @@ class Category:
         """Геттер для атрибута products"""
         return self.__products
 
-    def add_product(self, product: Product) -> None:
+    def add_product(self, product: Any) -> None:
         """Метод для добавления объекта продукта в категорию"""
+        if not isinstance(product, Product):
+            raise TypeError("В категорию можно добавить только объекты класса Product или его подклассов")
         self.__products.append(product)
         Category.product_unique_count += 1
 
