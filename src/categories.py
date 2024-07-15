@@ -2,11 +2,12 @@
 
 from typing import Any, Iterator
 
+from src.abstract_classes import AbstractOrder
 from src.mixins import MixinLog
 from src.products import Product
 
 
-class Category(MixinLog):
+class Category(AbstractOrder, MixinLog):
     """Класс категорий продуктов"""
 
     category_count: int = 0

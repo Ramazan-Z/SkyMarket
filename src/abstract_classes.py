@@ -21,3 +21,22 @@ class BaseProduct(ABC):
     def create_product(cls, name: str, description: str, price: float, quantity: int, products: list[Any] = []) -> Any:
         """Метод альтернативного создания экземпляра класса"""
         pass
+
+
+class AbstractOrder(ABC):
+    """Абстрактный базовый класс для класса заказов и категорий"""
+
+    @abstractmethod
+    def __init__(self) -> None:
+        """Инициализация экземпляра класса"""
+        super().__init__()
+
+    @abstractmethod
+    def get_products(self) -> Any:
+        """Метод получения содержания экземпляра класса"""
+        pass
+
+    @abstractmethod
+    def add_product(self, arg: Any) -> None:
+        """Метод добавления содержания экземпляра класса"""
+        pass
