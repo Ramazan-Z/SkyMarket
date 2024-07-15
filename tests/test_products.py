@@ -4,7 +4,8 @@ from typing import Any
 
 import pytest
 
-from src.products import Category, CategoryIterator, LawnGrass, Product, Smartphone
+from src.categories import Category, CategoryIterator
+from src.products import LawnGrass, Product, Smartphone
 
 
 # Тест инициализации класса Product
