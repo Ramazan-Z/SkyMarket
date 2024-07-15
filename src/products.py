@@ -2,8 +2,11 @@
 
 from typing import Any
 
+from src.abstract_classes import BaseProduct
+from src.mixins import MixinLog
 
-class Product:
+
+class Product(BaseProduct, MixinLog):
     """Класс продуктов"""
 
     def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
@@ -12,6 +15,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()
 
     def __len__(self) -> int:
         """Метод для вывода общего количества продукта"""
