@@ -186,3 +186,73 @@ def test_add_product_other(category: Category) -> None:
     with pytest.raises(TypeError) as e:
         category.add_product("Строка")
     assert str(e.value) == "В категорию можно добавить только объекты класса Product или его подклассов"
+
+
+# Тест метода create_product в классе Smatrphone
+# случай повтора имени и повышения цены
+def test_create_product_smartphome_repeat_name_price_up(smartphone: Smartphone) -> None:
+    assert smartphone.price == 15000.0
+    assert smartphone.quantity == 1
+    new_smartphone = Smartphone.create_product("Смартфон", "Описание смартфона", 16000.0, 10, [smartphone])
+    assert new_smartphone is smartphone
+    assert new_smartphone.price == 16000.0
+    assert new_smartphone.quantity == 11
+
+
+# Тест метода create_product в классе Smatrphone
+# случай повтора имени и понижения цены
+def test_create_product_smartphome_repeat_name_price_down(smartphone: Smartphone) -> None:
+    assert smartphone.price == 15000.0
+    assert smartphone.quantity == 1
+    new_smartphone = Smartphone.create_product("Смартфон", "Описание смартфона", 14000.0, 10, [smartphone])
+    assert new_smartphone is smartphone
+    assert new_smartphone.price == 15000.0
+    assert new_smartphone.quantity == 11
+
+
+# Тест метода create_product в классе Smatrphone
+# случай нового имени
+def test_create_product_smartphone_new(smartphone: Smartphone) -> None:
+    assert smartphone.price == 15000.0
+    assert smartphone.quantity == 1
+    new_smartphone = Smartphone.create_product("Новый смартфон", "Описание смартфона", 14000.0, 10, [smartphone])
+    assert new_smartphone is not smartphone
+    assert new_smartphone.price == 14000.0
+    assert new_smartphone.quantity == 10
+    assert smartphone.price == 15000.0
+    assert smartphone.quantity == 1
+
+
+# Тест метода create_product в классе LawnGrass
+# случай повтора имени и повышения цены
+def test_create_product_lawn_grass_repeat_name_price_up(lawn_grass: LawnGrass) -> None:
+    assert lawn_grass.price == 5000.0
+    assert lawn_grass.quantity == 10
+    new_lawn_grass = LawnGrass.create_product("Трава газонная", "Описание газона", 6000.0, 10, [lawn_grass])
+    assert new_lawn_grass is lawn_grass
+    assert new_lawn_grass.price == 6000.0
+    assert new_lawn_grass.quantity == 20
+
+
+# Тест метода create_product в классе LawnGrass
+# случай повтора имени и понижения цены
+def test_create_product_lawn_grass_repeat_name_price_down(lawn_grass: LawnGrass) -> None:
+    assert lawn_grass.price == 5000.0
+    assert lawn_grass.quantity == 10
+    new_lawn_grass = LawnGrass.create_product("Трава газонная", "Описание газона", 4000.0, 10, [lawn_grass])
+    assert new_lawn_grass is lawn_grass
+    assert new_lawn_grass.price == 5000.0
+    assert new_lawn_grass.quantity == 20
+
+
+# Тест метода create_product в классе LawnGrass
+# случай нового имени
+def test_create_product_lawn_grass_new(lawn_grass: LawnGrass) -> None:
+    assert lawn_grass.price == 5000.0
+    assert lawn_grass.quantity == 10
+    new_lawn_grass = LawnGrass.create_product("Новый газон", "Описание травы", 8000.0, 15, [lawn_grass])
+    assert new_lawn_grass is not lawn_grass
+    assert new_lawn_grass.price == 8000.0
+    assert new_lawn_grass.quantity == 15
+    assert lawn_grass.price == 5000.0
+    assert lawn_grass.quantity == 10
