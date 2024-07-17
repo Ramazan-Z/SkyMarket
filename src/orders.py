@@ -10,15 +10,15 @@ from src.products import Product
 class Order(AbstractOrder, MixinLog):
     """Класс заказов"""
 
-    __order_number: int = 1  # Номер заказа
+    _order_number: int = 1  # Номер заказа
 
     def __init__(self, product: Product, quantity: int) -> None:
         """Инициализация заказа"""
-        self.number = self.__order_number
+        self.number = self._order_number
         self.product = product
         self.price = product.price
         self.quantity = quantity
-        Order.__order_number += 1
+        Order._order_number += 1
         super().__init__()
 
     def __str__(self) -> str:

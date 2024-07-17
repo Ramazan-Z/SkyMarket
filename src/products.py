@@ -73,11 +73,11 @@ class Smartphone(Product):
         color: str,
     ) -> None:
         """Инициализация новых атрибутов экземпляра класса"""
-        super().__init__(name, description, price, quantity)
         self.performance = performance
         self.model = model
         self.memory = memory
         self.color = color
+        super().__init__(name, description, price, quantity)
 
 
 class LawnGrass(Product):
@@ -94,7 +94,7 @@ class LawnGrass(Product):
         color: str,
     ) -> None:
         """Инициализация новых атрибутов экземпляра класса"""
-        super().__init__(name, description, price, quantity)
         self.manufacturer = manufacturer
         self.germination_period = germination_period
         self.color = color
+        super().__init__(name, description, price, quantity)

@@ -20,6 +20,7 @@ class Category(AbstractOrder, MixinLog):
         self.__products = products
         Category.category_count += 1
         Category.product_unique_count += len(products)
+        super().__init__()
 
     def __len__(self) -> int:
         """Метод для вывода общего количества продуктов в категории"""
@@ -46,11 +47,12 @@ class Category(AbstractOrder, MixinLog):
         return [str(product) for product in self.__products]
 
 
-class CategoryIterator:
+class CategoryIterator(MixinLog):
     """Класс итератора категорий продуктов"""
 
     def __init__(self, category: Category) -> None:
         self.category = category
+        super().__init__()
 
     def __iter__(self) -> Iterator:
         self.index_product = -1

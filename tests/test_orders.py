@@ -40,4 +40,4 @@ def test_order_str(product: Product) -> None:
 # Тест метода __repr__ класса Order
 def test_order_repr(product: Product) -> None:
     order = Order(product, 10)
-    assert repr(order) == "Order(5, Имя продукта, 10999.99 руб. Остаток: 100 шт., 10999.99, 10)"
+    assert repr(order) == ("Order(5, Product('Имя продукта', 'Описание продукта', 10999.99, 100), 10999.99, 10)")
