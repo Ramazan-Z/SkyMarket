@@ -52,7 +52,9 @@ def test_product_setter_price_down_no(product: Product, monkeypatch: Any) -> Non
 def test_create_product_repeat_name_price_up(product: Product) -> None:
     assert product.price == 10999.99
     assert product.quantity == 100.0
-    new_product = Product.create_product("Имя продукта", "Описание продукта", 15000.0, 10, [product])
+    new_product = Product.create_product(
+        [product], name="Имя продукта", description="Описание продукта", price=15000.0, quantity=10
+    )
     assert new_product is product
     assert new_product.price == 15000.0
     assert new_product.quantity == 110
@@ -62,7 +64,9 @@ def test_create_product_repeat_name_price_up(product: Product) -> None:
 def test_create_product_repeat_name_price_down(product: Product) -> None:
     assert product.price == 10999.99
     assert product.quantity == 100.0
-    new_product = Product.create_product("Имя продукта", "Описание продукта", 5000.0, 10, [product])
+    new_product = Product.create_product(
+        [product], name="Имя продукта", description="Описание продукта", price=5000.0, quantity=10
+    )
     assert new_product is product
     assert new_product.price == 10999.99
     assert new_product.quantity == 110
@@ -72,7 +76,9 @@ def test_create_product_repeat_name_price_down(product: Product) -> None:
 def test_create_product_new_product(product: Product) -> None:
     assert product.price == 10999.99
     assert product.quantity == 100
-    new_product = Product.create_product("Новый продукт", "Описание продукта", 12000.0, 10, [product])
+    new_product = Product.create_product(
+        [product], name="Новый продукт", description="Описание продукта", price=12000.0, quantity=10
+    )
     assert new_product is not product
     assert new_product.price == 12000.0
     assert new_product.quantity == 10
@@ -193,7 +199,17 @@ def test_add_product_other(category: Category) -> None:
 def test_create_product_smartphome_repeat_name_price_up(smartphone: Smartphone) -> None:
     assert smartphone.price == 15000.0
     assert smartphone.quantity == 1
-    new_smartphone = Smartphone.create_product("Смартфон", "Описание смартфона", 16000.0, 10, [smartphone])
+    new_smartphone = Smartphone.create_product(
+        [smartphone],
+        name="Смартфон",
+        description="Описание смартфона",
+        price=16000.0,
+        quantity=10,
+        performance=3,
+        model="samsung",
+        memory=64,
+        color="black",
+    )
     assert new_smartphone is smartphone
     assert new_smartphone.price == 16000.0
     assert new_smartphone.quantity == 11
@@ -204,7 +220,17 @@ def test_create_product_smartphome_repeat_name_price_up(smartphone: Smartphone) 
 def test_create_product_smartphome_repeat_name_price_down(smartphone: Smartphone) -> None:
     assert smartphone.price == 15000.0
     assert smartphone.quantity == 1
-    new_smartphone = Smartphone.create_product("Смартфон", "Описание смартфона", 14000.0, 10, [smartphone])
+    new_smartphone = Smartphone.create_product(
+        [smartphone],
+        name="Смартфон",
+        description="Описание смартфона",
+        price=14000.0,
+        quantity=10,
+        performance=3,
+        model="samsung",
+        memory=64,
+        color="black",
+    )
     assert new_smartphone is smartphone
     assert new_smartphone.price == 15000.0
     assert new_smartphone.quantity == 11
@@ -215,7 +241,17 @@ def test_create_product_smartphome_repeat_name_price_down(smartphone: Smartphone
 def test_create_product_smartphone_new(smartphone: Smartphone) -> None:
     assert smartphone.price == 15000.0
     assert smartphone.quantity == 1
-    new_smartphone = Smartphone.create_product("Новый смартфон", "Описание смартфона", 14000.0, 10, [smartphone])
+    new_smartphone = Smartphone.create_product(
+        [smartphone],
+        name="Новый смартфон",
+        description="Описание смартфона",
+        price=14000.0,
+        quantity=10,
+        performance=3,
+        model="samsung",
+        memory=64,
+        color="black",
+    )
     assert new_smartphone is not smartphone
     assert new_smartphone.price == 14000.0
     assert new_smartphone.quantity == 10
@@ -228,7 +264,16 @@ def test_create_product_smartphone_new(smartphone: Smartphone) -> None:
 def test_create_product_lawn_grass_repeat_name_price_up(lawn_grass: LawnGrass) -> None:
     assert lawn_grass.price == 5000.0
     assert lawn_grass.quantity == 10
-    new_lawn_grass = LawnGrass.create_product("Трава газонная", "Описание газона", 6000.0, 10, [lawn_grass])
+    new_lawn_grass = LawnGrass.create_product(
+        [lawn_grass],
+        name="Трава газонная",
+        description="Описание газона",
+        price=6000.0,
+        quantity=10,
+        manufacturer="China",
+        germination_period=5,
+        color="green",
+    )
     assert new_lawn_grass is lawn_grass
     assert new_lawn_grass.price == 6000.0
     assert new_lawn_grass.quantity == 20
@@ -239,7 +284,16 @@ def test_create_product_lawn_grass_repeat_name_price_up(lawn_grass: LawnGrass) -
 def test_create_product_lawn_grass_repeat_name_price_down(lawn_grass: LawnGrass) -> None:
     assert lawn_grass.price == 5000.0
     assert lawn_grass.quantity == 10
-    new_lawn_grass = LawnGrass.create_product("Трава газонная", "Описание газона", 4000.0, 10, [lawn_grass])
+    new_lawn_grass = LawnGrass.create_product(
+        [lawn_grass],
+        name="Трава газонная",
+        description="Описание газона",
+        price=4000.0,
+        quantity=10,
+        manufacturer="China",
+        germination_period=5,
+        color="green",
+    )
     assert new_lawn_grass is lawn_grass
     assert new_lawn_grass.price == 5000.0
     assert new_lawn_grass.quantity == 20
@@ -250,7 +304,16 @@ def test_create_product_lawn_grass_repeat_name_price_down(lawn_grass: LawnGrass)
 def test_create_product_lawn_grass_new(lawn_grass: LawnGrass) -> None:
     assert lawn_grass.price == 5000.0
     assert lawn_grass.quantity == 10
-    new_lawn_grass = LawnGrass.create_product("Новый газон", "Описание травы", 8000.0, 15, [lawn_grass])
+    new_lawn_grass = LawnGrass.create_product(
+        [lawn_grass],
+        name="Новый газон",
+        description="Описание травы",
+        price=8000.0,
+        quantity=15,
+        manufacturer="China",
+        germination_period=5,
+        color="green",
+    )
     assert new_lawn_grass is not lawn_grass
     assert new_lawn_grass.price == 8000.0
     assert new_lawn_grass.quantity == 15
