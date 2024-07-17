@@ -18,7 +18,7 @@ class BaseProduct(ABC):
         pass
 
     @abstractmethod
-    def create_product(cls, name: str, description: str, price: float, quantity: int, products: list[Any] = []) -> Any:
+    def create_product(cls, *args: Any, **kwargs: Any) -> Any:
         """Метод альтернативного создания экземпляра класса"""
         pass
 
