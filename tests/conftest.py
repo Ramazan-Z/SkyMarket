@@ -2,7 +2,8 @@
 
 import pytest
 
-from src.products import Category, LawnGrass, Product, Smartphone
+from src.categories import Category
+from src.products import LawnGrass, Product, Smartphone
 
 
 # Фикстура для класса Product

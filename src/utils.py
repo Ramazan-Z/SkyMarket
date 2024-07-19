@@ -3,7 +3,8 @@
 import json
 import os
 
-from src.products import Category, Product
+from src.categories import Category
+from src.products import Product
 
 ROOT = os.path.join(os.path.dirname(__file__), "..", "data")
 
