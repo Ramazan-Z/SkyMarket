@@ -14,7 +14,10 @@ class Product(BaseProduct, MixinLog):
         self.name = name
         self.description = description
         self.__price = price
-        self.quantity = quantity
+        if quantity > 0:
+            self.quantity = quantity
+        else:
+            raise ValueError("Количество товара должно быть больше нуля")
         super().__init__()
 
     def __len__(self) -> int:
