@@ -319,3 +319,21 @@ def test_create_product_lawn_grass_new(lawn_grass: LawnGrass) -> None:
     assert new_lawn_grass.quantity == 15
     assert lawn_grass.price == 5000.0
     assert lawn_grass.quantity == 10
+
+
+# Тест создания продукта с нулевым количеством
+def test_product_zero_quantity() -> None:
+    with pytest.raises(ValueError, match="Количество товара должно быть больше нуля"):
+        Product("name", "description", 500, 0)
+
+
+# Тест создания смартфона с нулевым количеством
+def test_smartphone_zero_quantity() -> None:
+    with pytest.raises(ValueError, match="Количество товара должно быть больше нуля"):
+        Smartphone("name", "description", 500, 0, 2, "nokia", 128, "blue")
+
+
+# Тест создания газона с нулевым количеством
+def test_lawn_grass_zero_quantity() -> None:
+    with pytest.raises(ValueError, match="Количество товара должно быть больше нуля"):
+        LawnGrass("name", "description", 500, 0, "Russia", 5, "green")
